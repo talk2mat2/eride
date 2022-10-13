@@ -5,7 +5,9 @@ import AutoItem from "./autoItem";
 const AutoCompleteList = () => {
   return (
     <View style={styles.container}>
-      <AutoItem />
+      {[1, 2, 3, 4].map((xx,index) => (
+        <AutoItem key={index} />
+      ))}
     </View>
   );
 };

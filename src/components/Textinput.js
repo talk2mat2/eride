@@ -3,10 +3,17 @@ import { TextInput } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../helpers/colors";
 
-const TextInputs = ({
-  inputStyles = {},
-  placeholder = "",secureTextEntry = false,
-}) => {
+const TextInputs = (
+  {
+    inputStyles = {},
+    placeholder = "",
+    secureTextEntry = false,
+    value,
+    onChangeText,
+    onBlur,
+  },
+  props
+) => {
   const [text, setText] = React.useState("");
   return (
     <View style={{ ...styles.container, ...inputStyles }}>
@@ -14,8 +21,10 @@ const TextInputs = ({
         secureTextEntry={secureTextEntry}
         style={{ backgroundColor: colors.white }}
         label={placeholder}
-        value={text}
-        onChangeText={(text) => setText(text)}
+        onChangeText={onChangeText}
+        onBlur={onBlur}
+        value={value}
+        autoCapitalize={false}
       />
     </View>
   );

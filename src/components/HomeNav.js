@@ -5,9 +5,9 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { colors } from "../helpers/colors";
 import { fonts } from "../helpers/constants";
 
-const HomeNav = ({ title = "" }) => {
+const HomeNav = ({ title = "", onPress = () => {} }) => {
   return (
-    <TouchableNativeFeedback>
+    <TouchableNativeFeedback onPress={onPress}>
       <View
         style={{
           flexDirection: "row",

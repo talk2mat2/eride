@@ -18,26 +18,44 @@ import Main from "./src/views/navigations";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AccountSettings from "./src/views/Accountsettings";
-
-
+import { ToastProvider } from "react-native-toast-notifications";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
+import { persistor, store } from "./src/redux/store";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     SourceSansProSemiBold: require("./assets/fonts/SourceSansProSemiBold.ttf"),
   });
+  const queryClient = new QueryClient();
   if (!fontsLoaded) {
     return null;
   }
   return (
-    <NavigationContainer>
-      <PaperProvider>
-        <SafeAreaProvider>
-          <SafeAreaView style={[styles.container]}>
-            <Main />
-          </SafeAreaView>
-        </SafeAreaProvider>
-      </PaperProvider>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <QueryClientProvider client={queryClient}>
+            <PaperProvider>
+              <SafeAreaProvider>
+                <SafeAreaView style={[styles.container]}>
+                  <ToastProvider offsetBottom={70} >
+                    <Main />
+                  </ToastProvider>
+                </SafeAreaView>
+              </SafeAreaProvider>
+            </PaperProvider>
+          </QueryClientProvider>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 }
 

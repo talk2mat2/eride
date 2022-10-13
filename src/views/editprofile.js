@@ -1,5 +1,11 @@
 import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+} from "react-native";
 import Buttons from "../components/buttons";
 import Buttons2 from "../components/buttons2";
 import Header from "../components/header";
@@ -11,10 +17,10 @@ import { colors } from "../helpers/colors";
 import { Avatar, Divider } from "react-native-paper";
 import { fonts } from "../helpers/constants";
 
-const EditProfile = () => {
+const EditProfile = ({navigation}) => {
   return (
-    <View>
-      <Header title="Edit Profile" />
+    <View style={styles.container}>
+      <Header  textStyle={{ fontSize: 25 }} navigation={navigation} title="Edit Profile" />
       <View>
         <View
           style={{
@@ -93,7 +99,7 @@ const EditProfile = () => {
                   </Text>
                 </View>
               </View>
-              <TouchableOpacity style={{ paddingLeft:30 }}>
+              <TouchableOpacity style={{ paddingLeft: 30 }}>
                 <AntDesign name="edit" size={24} color="black" />
               </TouchableOpacity>
             </View>
@@ -120,7 +126,7 @@ const EditProfile = () => {
                   </Text>
                 </View>
               </View>
-              <TouchableOpacity style={{ paddingLeft:30 }}>
+              <TouchableOpacity style={{ paddingLeft: 30 }}>
                 <AntDesign name="edit" size={24} color="black" />
               </TouchableOpacity>
             </View>
@@ -138,4 +144,9 @@ const EditProfile = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.white,
+  },
+});
 export default EditProfile;

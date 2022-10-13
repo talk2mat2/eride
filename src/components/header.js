@@ -44,7 +44,7 @@ const Header = ({
     <Animated.View
       style={{
         ...styles.container,
-        transform: animate ? [{ translateY: Intro.y }] : null,
+        transform: animate ? [{ translateY: Intro.y }] : [],
       }}
     >
       {showNav && (

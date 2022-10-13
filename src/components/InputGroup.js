@@ -4,17 +4,29 @@ import { AntDesign } from "@expo/vector-icons";
 
 import { TextInput, View, StyleSheet } from "react-native";
 import { colors } from "../helpers/colors";
-const InputGroup = ({ autoFocus = false }) => {
-  const [isset, setIsset] = React.useState(false);
+const InputGroup = ({
+  autoFocus = false,
+  value = "",
+  placeholder,
+  isset,
+  onFocus,
+}) => {
+  // const [isset, setIsset] = React.useState(false);
   return (
     <View style={styles.container}>
       {!isset ? (
-        <FontAwesome5 name="dot-circle" size={24} color={colors.lightblue} />
+        <FontAwesome5 name="dot-circle" size={20} color={colors.lightblue} />
       ) : (
-        <AntDesign name="search1" size={24} color="black" />
+        <AntDesign name="search1" size={20} color={colors.grey2} />
       )}
 
-      <TextInput autoFocus={autoFocus} style={styles.input} />
+      <TextInput
+        onFocus={onFocus}
+        placeholder=""
+        value={value}
+        autoFocus={autoFocus}
+        style={styles.input}
+      />
     </View>
   );
 };

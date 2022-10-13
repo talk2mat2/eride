@@ -4,14 +4,21 @@ import { colors } from "../helpers/colors";
 import { fonts } from "../helpers/constants";
 const Buttons = ({
   onPress,
+  disabled = false,
   title = "",
   textStyles = {},
   children,
   btnStyles = {},
 }) => {
   return (
-    <TouchableOpacity onPress={onPress || null}>
-      <View style={{ ...styles.container, ...btnStyles }}>
+    <TouchableOpacity onPress={!disabled ? onPress : null}>
+      <View
+        style={{
+          ...styles.container,
+          ...btnStyles,
+          backgroundColor: disabled ? colors.grey3 : colors.primary,
+        }}
+      >
         {children}
         <Text style={{ ...fonts.h1, ...textStyles }}>{title}</Text>
       </View>

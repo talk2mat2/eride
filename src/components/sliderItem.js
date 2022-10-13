@@ -20,12 +20,10 @@ const SlideItem2 = () => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={{ ...fonts.h1, fontSize: 20 }}>
-          Quick, in-town delivery
-        </Text>
-        <Text style={{ ...fonts.h1, fontSize: 14 }}>Send a package</Text>
+        <Text style={{ ...fonts.h1, fontSize: 20 }}>Got favorite drivers?</Text>
+        <Text style={{ ...fonts.h1, fontSize: 14 }}>Book Reserve</Text>
       </View>
-      <Image source={require("../../assets/gift.png")} />
+      <Image source={require("../../assets/Rectangle-38.png")} />
     </View>
   );
 };
@@ -34,11 +32,11 @@ const SlideItem3 = () => {
     <View style={styles.container}>
       <View>
         <Text style={{ ...fonts.h1, fontSize: 20 }}>
-          Quick, in-town delivery
+          Leave something at home?
         </Text>
         <Text style={{ ...fonts.h1, fontSize: 14 }}>Send a package</Text>
       </View>
-      <Image source={require("../../assets/gift.png")} />
+      <Image source={require("../../assets/Rectangle-40.png")} />
     </View>
   );
 };

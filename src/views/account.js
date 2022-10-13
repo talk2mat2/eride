@@ -8,33 +8,44 @@ import {
   ImageBackground,
 } from "react-native";
 import { Avatar, Divider } from "react-native-paper";
+import { useSelector } from "react-redux";
 import { colors } from "../helpers/colors";
 import { fonts } from "../helpers/constants";
 const Account = ({ navigation }) => {
+  const user = useSelector(({ user }) => user?.data);
   const handleNavigation = (location) => {
     navigation.navigate(location);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.imgContainer}>
         <ImageBackground
           source={require("../../assets/Ellipse.png")}
-          resizeMode="contain"
+          resizeMode="stretch"
           style={styles.image}
+          //   imageStyle={{
+          //     resizeMode: "stretch",
+          //     alignSelf: "flex-start"
+          //   }}
         >
           <Text
             style={{ ...fonts.h1, fontSize: 30, lineHeight: 29, marginTop: 60 }}
           >
-            Emmanuel{"\n"}Odejinmi
+            {user?.userData?.first_name}{"\n"}{user?.userData?.last_name}
           </Text>
           <Avatar.Image
-            style={{ position: "absolute", bottom: -30 }}
+            style={{
+              position: "absolute",
+              bottom: -30,
+              backgroundColor: colors.grey1,
+            }}
             size={100}
           />
         </ImageBackground>
       </View>
 
-      <View style={{ marginTop: 40 }}>
+      <View style={{ marginTop: "20%", paddingHorizontal: 20 }}>
         <TouchableNativeFeedback>
           <View
             style={{
@@ -50,7 +61,7 @@ const Account = ({ navigation }) => {
             </Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback>
+        <TouchableNativeFeedback onPress={() => handleNavigation("Wallet")}>
           <View
             style={{
               flexDirection: "row",
@@ -61,7 +72,7 @@ const Account = ({ navigation }) => {
           >
             <Image source={require("../../assets/Vector.png")} />
             <Text style={{ ...fonts.h2, marginLeft: 10, fontSize: 19 }}>
-              Fund Wallet
+              Wallet
             </Text>
           </View>
         </TouchableNativeFeedback>
@@ -81,7 +92,7 @@ const Account = ({ navigation }) => {
           </View>
         </TouchableNativeFeedback>
       </View>
-      <View style={{ marginTop: "2%" }}>
+      <View style={{ marginTop: "2%", paddingHorizontal: 20 }}>
         <Divider style={{ backgroundColor: colors.primary }} />
         <View style={{ marginTop: "2%" }}>
           <TouchableNativeFeedback>
@@ -97,7 +108,9 @@ const Account = ({ navigation }) => {
               <Text style={{ ...fonts.h2, marginLeft: 10 }}>Messages</Text>
             </View>
           </TouchableNativeFeedback>
-          <TouchableNativeFeedback onPress={()=> handleNavigation('AccounteSettings')}>
+          <TouchableNativeFeedback
+            onPress={() => handleNavigation("AccounteSettings")}
+          >
             <View
               style={{
                 flexDirection: "row",
@@ -130,8 +143,7 @@ const Account = ({ navigation }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
-    backgroundColor: colors.grey1,
+    backgroundColor: colors.white,
     flex: 1,
   },
   image: {

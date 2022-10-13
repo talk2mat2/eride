@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View,StyleSheet } from "react-native";
 import Buttons from "../components/buttons";
 import Header from "../components/header";
 import TextInputs from "../components/Textinput";
@@ -7,10 +7,10 @@ import { colors } from "../helpers/colors";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { fonts } from "../helpers/constants";
 
-const ResetPass = () => {
+const ResetPass = ({navigation}) => {
   return (
-    <View>
-      <Header title="Reset Password" />
+    <View style={styles.container}>
+      <Header navigation={navigation} textStyle={{ fontSize:22 }} title="Reset Password" />
       <View style={{ marginTop: "8%" ,alignItems:"center"}}>
         <SimpleLineIcons name="emotsmile" size={60} color={colors.primary} />
       </View>
@@ -24,11 +24,16 @@ const ResetPass = () => {
         </View>
 
         <View style={{ alignItems: "center", marginTop: "50%" }}>
-          <Buttons title="Reset Password" />
+          <Buttons textStyles={{ fontSize:22 }} title="Reset Password" />
         </View>
       </View>
     </View>
   );
 };
 
+const styles= StyleSheet.create({
+  container:{
+    backgroundColor:colors.white
+  }
+})
 export default ResetPass;
