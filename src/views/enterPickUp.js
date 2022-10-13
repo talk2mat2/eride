@@ -14,8 +14,10 @@ import { useFocusEffect } from "@react-navigation/native";
 import { colors } from "../helpers/colors";
 import AutoCompleteList from "../components/autocompleteList";
 import { useSelector } from "react-redux";
+import corsapi from "../services/corsapi";
 const EnterPickUp = ({ navigation }) => {
   const [pickup, setPickUp] = React.useState("");
+  const [predictions, setPredictions] = React.useState([]);
   const myLocation = useSelector(({ myLocation }) => myLocation?.myLocation);
   const [focused, setFocused] = React.useState("");
   const myDestination = useSelector(
@@ -35,7 +37,19 @@ const EnterPickUp = ({ navigation }) => {
       return true;
     }
   };
-  const handleAutoSearch = () => {};
+  const handleAutoSearch = async (text) => {
+    if(focused=="myLocation"){
+      setPickUp(text)
+    }
+    await corsapi
+      .getAutoComplete(text)
+      .then((res) => {
+        setPredictions(res?.predictions)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -62,6 +76,7 @@ const EnterPickUp = ({ navigation }) => {
       </Header>
       <View style={{ paddingHorizontal: 20, marginTop: 9 }}>
         <InputGroup
+          onChangeText={handleAutoSearch}
           onFocus={() => setFocused("myLocation")}
           placeholder="set pickup location"
           value={pickup}
@@ -71,12 +86,13 @@ const EnterPickUp = ({ navigation }) => {
       </View>
       <View style={{ paddingHorizontal: 20, marginTop: 4 }}>
         <InputGroup
+          onChangeText={handleAutoSearch}
           onFocus={() => setFocused("myDestination")}
           autoFocus={isDestinationSet()}
           isset={isDestinationSet()}
         />
       </View>
-      <AutoCompleteList />
+      <AutoCompleteList predictions={predictions} />
     </View>
   );
 };

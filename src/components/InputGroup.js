@@ -9,6 +9,7 @@ const InputGroup = ({
   value = "",
   placeholder,
   isset,
+  onChangeText,
   onFocus,
 }) => {
   // const [isset, setIsset] = React.useState(false);
@@ -21,6 +22,7 @@ const InputGroup = ({
       )}
 
       <TextInput
+        onChangeText={onChangeText}
         onFocus={onFocus}
         placeholder=""
         value={value}
