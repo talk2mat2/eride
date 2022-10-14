@@ -4,12 +4,26 @@ import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../helpers/colors";
 import { fonts } from "../helpers/constants";
-const AutoItem = ({ places }) => {
+const AutoItem = ({ places, handleplaces }) => {
   return (
-    <TouchableNativeFeedback>
+    <TouchableNativeFeedback
+      onPress={() =>
+        handleplaces({
+          placesid: places?.place_id,
+          address: places?.description,
+        })
+      }
+    >
       <View style={styles.container}>
         <Ionicons name="location-outline" size={24} color={colors.grey2} />
-        <Text style={{ ...fonts.p, marginRight: "auto", marginLeft: 20 ,maxWidth:"80%"}}>
+        <Text
+          style={{
+            ...fonts.p,
+            marginRight: "auto",
+            marginLeft: 20,
+            maxWidth: "80%",
+          }}
+        >
           {places?.description}
         </Text>
         <Feather name="arrow-up-left" size={24} color={colors.grey2} />

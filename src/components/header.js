@@ -48,7 +48,7 @@ const Header = ({
       }}
     >
       {showNav && (
-        <TouchableOpacity onPress={handleBack}>
+        <TouchableOpacity style={{ paddingRight:20 }} onPress={handleBack}>
           <FontAwesome5 name="arrow-left" size={25} color={colors.white} />
         </TouchableOpacity>
       )}

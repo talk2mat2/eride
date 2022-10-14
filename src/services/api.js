@@ -111,7 +111,7 @@ export const useUploadMutations = () => {
       })
       .then((res) => res.data)
       .catch((err) => {
-        console.log(err.response);
+        // console.log(err.response);
         return err?.response.data;
       });
   };

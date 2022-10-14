@@ -24,6 +24,7 @@ import EditProfile from "./editprofile";
 import OtpView from "./otp";
 import register from "./register";
 import ResetPass from "./resetpassword";
+import WithMap from "./withmap";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -248,6 +249,11 @@ function Main() {
             options={{ headerShown: false, ...AnimateDown }}
             name="editProfile"
             component={EditProfile}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, ...AnimateSide }}
+            name="withmap"
+            component={WithMap}
           />
         </>
       )}

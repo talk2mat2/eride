@@ -21,7 +21,7 @@ import HeaderMenu from "../components/headerMenu";
 import CarsDrwaer from "../components/carsdrawer";
 import MapViews from "../components/mapview";
 
-const WithMap = () => {
+const WithMap = ({ navigation }) => {
   const [open, setOpen] = React.useState(false);
   const [animedone, setAnimedon] = React.useState(false);
 
@@ -32,7 +32,11 @@ const WithMap = () => {
   }, []);
   return (
     <View style={styles.container}>
-      <HeaderMenu title="Eride" />
+      <Header animate={false}
+        textStyle={{ fontSize: 25 }}
+        navigation={navigation}
+        title="Eride"
+      />
       <MapViews animedone={animedone} />
       <CarsDrwaer setAnimedon={setAnimedon} />
     </View>

@@ -54,6 +54,7 @@ const Home = ({ navigation, setLoading }) => {
             );
           })
           .catch((err) => {
+            console.log(err)
             setLoading(false);
           });
       }

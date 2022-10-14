@@ -21,11 +21,28 @@ export default new (class corsapi {
     const link =
       mapsapi +
       "/" +
-      `place/autocomplete/json?input=${query}&types=geocode&key=` +
+      `place/autocomplete/json?input=${query}&types=address&components=country:ng&key=` +
       api_key;
     return await axios
       .get(link)
       .then((res) => {
+        // console.log(res?.data)
+        return res?.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  async getByPlacesId(placeid) {
+    const link =
+      mapsapi +
+      "/" +
+      `place/details/json?placeid=${placeid}&key=` +
+      api_key;
+    return await axios
+      .get(link)
+      .then((res) => {
+        // console.log(res?.data)
         return res?.data;
       })
       .catch((err) => {

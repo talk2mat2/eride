@@ -2,11 +2,11 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { colors } from "../helpers/colors";
 import AutoItem from "./autoItem";
-const AutoCompleteList = ({ predictions = [] }) => {
+const AutoCompleteList = ({ predictions = [],handleplaces }) => {
   return (
     <View style={styles.container}>
       {predictions?.map((places, index) => (
-        <AutoItem places={places} key={index} />
+        <AutoItem handleplaces={handleplaces} places={places} key={index} />
       ))}
     </View>
   );
