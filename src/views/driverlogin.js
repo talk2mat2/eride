@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 import { useMutations } from "../services/api";
 import { logIn } from "../redux/reducers/usersSlice";
 
-const Login = ({ navigation, setLoading, loading }) => {
+const DriverLogin = ({ navigation, setLoading, loading }) => {
   const { mutate } = useMutations();
 
   const { show } = appToast();
@@ -74,10 +74,10 @@ const Login = ({ navigation, setLoading, loading }) => {
         }}
       >
         {({ handleChange, handleBlur, handleSubmit, values }) => (
-          <View style={{ marginTop: "15%" }}>
+          <View style={{ marginTop: "20%" }}>
             <View style={{ alignItems: "center", marginBottom: "25%" }}>
-              <Image source={require("../../assets/logo1.png")} />
-              <Text style={{ fontWeight: "bold", fontSize: 22 }}>RIDE ON</Text>
+              {/* <Image source={require("../../assets/logo1.png")} />
+              <Text style={{ fontWeight: "bold", fontSize: 22 }}>RIDE ON</Text> */}
             </View>
 
             <Text
@@ -87,7 +87,7 @@ const Login = ({ navigation, setLoading, loading }) => {
                 textAlign: "center",
               }}
             >
-              Login
+              Driver Login
             </Text>
 
             <View style={{ marginTop: 10, paddingHorizontal: 20 }}>
@@ -132,7 +132,7 @@ const Login = ({ navigation, setLoading, loading }) => {
                 </Text>
               </TouchableNativeFeedback>
               <TouchableNativeFeedback
-                onPress={() => navigation.navigate("register")}
+                onPress={() => navigation.navigate("driverregister")}
               >
                 <Text style={{ ...fonts.p, color: colors.grey2 }}>
                   Create account
@@ -150,10 +150,10 @@ const Login = ({ navigation, setLoading, loading }) => {
               }}
             >
               <TouchableNativeFeedback
-                onPress={() => navigation.navigate("driverlogin")}
+                onPress={() => navigation.navigate("login")}
               >
                 <Text style={{ ...fonts.p, color: colors.grey2 }}>
-                  Drivers section
+                  Users section
                 </Text>
               </TouchableNativeFeedback>
             </View>
@@ -169,4 +169,4 @@ const styles = StyleSheet.create({
     flex:1
   },
 });
-export default WithSpinner(Login);
+export default WithSpinner(DriverLogin);

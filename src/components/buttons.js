@@ -15,8 +15,9 @@ const Buttons = ({
       <View
         style={{
           ...styles.container,
-          ...btnStyles,
+
           backgroundColor: disabled ? colors.grey3 : colors.primary,
+          ...btnStyles,
         }}
       >
         {children}

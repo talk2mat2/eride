@@ -20,6 +20,7 @@ import { fonts } from "../helpers/constants";
 import HeaderMenu from "../components/headerMenu";
 import CarsDrwaer from "../components/carsdrawer";
 import MapViews from "../components/mapview";
+import MapViewDirections from 'react-native-maps-directions';
 
 const WithMap = ({ navigation }) => {
   const [open, setOpen] = React.useState(false);
@@ -30,6 +31,10 @@ const WithMap = ({ navigation }) => {
       setOpen(true);
     }, 9000);
   }, []);
+
+  const handleProceed=()=>{
+    navigation.navigate("pickupwithmap")
+  }
   return (
     <View style={styles.container}>
       <Header animate={false}
@@ -38,7 +43,7 @@ const WithMap = ({ navigation }) => {
         title="Eride"
       />
       <MapViews animedone={animedone} />
-      <CarsDrwaer setAnimedon={setAnimedon} />
+      <CarsDrwaer handleProceed={handleProceed} setAnimedon={setAnimedon} />
     </View>
   );
 };

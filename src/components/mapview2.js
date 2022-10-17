@@ -2,12 +2,12 @@ import React from "react";
 import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { useSelector } from "react-redux";
-import MapViewDirections from "react-native-maps-directions";
 import getEnvVars from "../services/env";
+import PickIcon from "./pickicon";
 import MyLocIcon from "./mylocIcon";
 const api_key = getEnvVars().google_key;
 
-const MapViews = ({ animedone }) => {
+const MapViews2 = ({ animedone }) => {
   let mapRef = null;
   // const mapRef = React.useRef();
   const myLocation = useSelector(({ myLocation }) => myLocation?.myLocation);
@@ -36,61 +36,52 @@ const MapViews = ({ animedone }) => {
   return (
     <View style={{ ...styles.container, marginBottom: animedone ? 176 : 0 }}>
       <MapView
-        ref={(ref) => {
-          mapRef = ref;
-        }}
-        onLayout={() =>
-          mapRef.fitToCoordinates(
-            items(),
+        // ref={(ref) => {
+        //   mapRef = ref;
+        // }}
+        // onLayout={() =>
+        //   mapRef.setCenter(
+        //     items()[0],
 
-            {
-              edgePadding: { top: 20, right: 30, bottom: 20, left: 20 },
-              animated: true,
-            }
-          )
-        }
+        //     {
+        //       edgePadding: { top: 20, right: 30, bottom: 20, left: 20 },
+        //       animated: true,
+        //     }
+        //   )
+        // }
         // ref={mapRef}
         focusable
         provider={PROVIDER_GOOGLE}
         style={{ ...styles.map }}
-        // region={
-        //   myLocation
-        //     ? {
-        //         latitude: myLocation?.lat,
-        //         longitude: myLocation.lng,
-        //         latitudeDelta: 0.0022,
-        //         longitudeDelta: 0.0021,
-        //       }
-        //     : {
-        //         latitude: 6.5194683,
-        //         longitude: 3.3674491,
-        //         latitudeDelta: 0.0022,
-        //         longitudeDelta: 0.0021,
-        //       }
-        // }
+        region={
+          myLocation
+            ? {
+                latitude: myLocation?.lat,
+                longitude: myLocation.lng,
+                latitudeDelta: 0.0022,
+                longitudeDelta: 0.0021,
+              }
+            : {
+                latitude: 6.5194683,
+                longitude: 3.3674491,
+                latitudeDelta: 0.0022,
+                longitudeDelta: 0.0021,
+              }
+        }
         zoomEnabled={true}
         showsUserLocation={true}
       >
-        {myLocation.lat && myDestination.lat && (
-          <MapViewDirections
-            origin={items()[0]}
-            destination={items()[1]}
-            apikey={api_key}
-            strokeWidth={3}
-            strokeColor="hotpink"
-          />
-        )}
         {myLocation ? (
           <Marker
             coordinate={{
               latitude: myLocation.lat,
               longitude: myLocation.lng,
             }}
-            title={"Start location"}
-            description={""}
+            title={"Pick up"}
+            description={"pick up spot"}
             pinColor={"green"}
           >
-            <MyLocIcon  title="Start"/>
+            <MyLocIcon title="PickUp" />
           </Marker>
         ) : null}
       </MapView>
@@ -110,4 +101,4 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
-export default MapViews;
+export default MapViews2;

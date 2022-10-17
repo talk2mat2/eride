@@ -49,7 +49,7 @@ const PickDrwaer = ({ title = "", setAnimedon, setDrawer }) => {
           onPress={HandlePress}
           textStyles={{ fontSize: 16 }}
           btnStyles={{ height: 40 }}
-          title="Available Pick Up"
+          title="Show available Pick Up"
         />
       </View>
     </Animated.View>

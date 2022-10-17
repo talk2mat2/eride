@@ -22,25 +22,32 @@ import CarsDrwaer from "../components/carsdrawer";
 import MapViews from "../components/mapview";
 import PickDrwaer from "../components/pickupdrawer";
 import PickList from "../components/pickupList";
+import MapViews2 from "../components/mapview2";
 
-const PickUpWithMap = () => {
-  const [open, setOpen] = React.useState(false);
+const PickUpWithMap = ({ navigation }) => {
+  // const [open, setOpen] = React.useState(false);
   const [drawer, setDrawer] = React.useState(true);
   const [animedone, setAnimedon] = React.useState(false);
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      setOpen(true);
-    }, 9000);
-  }, []);
+  // React.useEffect(() => {
+  //   setTimeout(() => {
+  //     setOpen(true);
+  //   }, 9000);
+  // }, []);
   return (
     <View style={styles.container}>
-      <Header title="E-Ride" />
-      <MapViews animedone={animedone} />
-      {/* {drawer == true && (
+      <Header navigation={navigation} title="E-Ride" />
+      <MapViews2 animedone={animedone} />
+      {drawer == true ? (
         <PickDrwaer setDrawer={setDrawer} setAnimedon={setAnimedon} />
-      )} */}
-      {<PickList setDrawer={setDrawer} setAnimedon={setAnimedon} />}
+      ) : (
+        <PickList
+          navigation={navigation}
+          na
+          setDrawer={setDrawer}
+          setAnimedon={setAnimedon}
+        />
+      )}
     </View>
   );
 };

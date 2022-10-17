@@ -17,10 +17,14 @@ import { colors } from "../helpers/colors";
 import { Avatar, Divider } from "react-native-paper";
 import { fonts } from "../helpers/constants";
 
-const DriverProfile = () => {
+const DriverProfile = ({navigation}) => {
   return (
     <View>
-      <Header title="Driver Profile" />
+      <Header na
+        textStyle={{ fontSize: 25 }}
+        navigation={navigation}
+        title="Driver Profile"
+      />
       <View>
         <View
           style={{
@@ -78,8 +82,12 @@ const DriverProfile = () => {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{ marginTop:90 ,alignItems:"center"}}>
-            <Buttons textStyles={{ fontSize:20 }} btnStyles={{ height:30,width:180 }} title="Call"/>
+          <View style={{ marginTop: 90, alignItems: "center" }}>
+            <Buttons
+              textStyles={{ fontSize: 20 }}
+              btnStyles={{ height: 30, width: 180 }}
+              title="Call"
+            />
           </View>
         </ScrollView>
       </View>

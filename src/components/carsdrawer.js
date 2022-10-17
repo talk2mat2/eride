@@ -12,7 +12,7 @@ import { colors } from "../helpers/colors";
 import { fonts } from "../helpers/constants";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Buttons from "./buttons";
-const CarsDrwaer = ({ title = "", setAnimedon }) => {
+const CarsDrwaer = ({ title = "", setAnimedon ,handleProceed}) => {
   const [selected, setSelected] = React.useState(1);
   const Intro = new Animated.ValueXY({
     x: 0,
@@ -40,7 +40,7 @@ const CarsDrwaer = ({ title = "", setAnimedon }) => {
       style={{ ...styles.container, transform: [{ translateY: Intro.y }] }}
     >
       <View style={{ alignItems: "center" }}>
-        <Buttons
+        <Buttons onPress={handleProceed}
           textStyles={{ fontSize: 14 }}
           btnStyles={{ height: 30 }}
           title="Proceed"

@@ -3,7 +3,9 @@ export const colors = {
   white:"#ffffff",
   grey1:"#f0f0f0",
   grey3:"#DCDCDC",
+  blue:"#2E36A4",
   grey2:"1px solid rgba(0, 0, 0, 0.5)",
   primaryLight:"#fff2e5",
-  lightblue:"dodgerblue"
+  lightblue:"dodgerblue",
+  black:"#454545"
 };

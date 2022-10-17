@@ -25,41 +25,7 @@ const Home = ({ navigation, setLoading }) => {
   const [errorMsg, setErrorMsg] = useState(null);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      console.log(location.coords);
-      if (location?.coords?.longitude && location?.coords?.latitude) {
-        setLoading(true);
-        await corsapi
-          .getPlacesByLngLat(
-            location?.coords?.latitude,
-            location?.coords?.longitude
-          )
-          .then((res) => {
-            setLoading(false);
-            console.log(res?.results?.[0]?.formatted_address);
-            dispatch(
-              setMylocation({
-                lat: location?.coords?.latitude,
-                lng: location?.coords?.longitude,
-                address: res?.results?.[0]?.formatted_address,
-              })
-            );
-          })
-          .catch((err) => {
-            console.log(err)
-            setLoading(false);
-          });
-      }
-    })();
-  }, []);
+
   // const { data, isError, isLoading, refetch } = useClientQuery("https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY");
 
   // useFocusEffect(

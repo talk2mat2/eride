@@ -16,7 +16,7 @@ import { fonts } from "../helpers/constants";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Buttons from "./buttons";
 import DriverListItem from "./diverListItem";
-const PickList = ({ title = "", setAnimedon, setDrawer }) => {
+const PickList = ({ title = "", setAnimedon, setDrawer ,navigation}) => {
   const [selected, setSelected] = React.useState(1);
   const { width: deviceWidth, height: deviceHeight } = Dimensions.get("screen");
   const outcomePopper = React.useRef(
@@ -93,12 +93,14 @@ const PickList = ({ title = "", setAnimedon, setDrawer }) => {
     // },
   });
   React.useEffect(() => {
-    Animated.spring(outcomePopper, {
-      toValue: { x: 0, y: 7 },
-      useNativeDriver: true,
-      bounciness: 10,
-      speed: 20,
-    }).start(() => setAnimedon(true));
+    setTimeout(() => {
+      Animated.spring(outcomePopper, {
+        toValue: { x: 0, y: 7 },
+        useNativeDriver: true,
+        bounciness: 2,
+        speed: 10,
+      }).start(() => setAnimedon(true));
+    }, 3000);
   }, []);
   return (
     <Animated.View
@@ -116,7 +118,7 @@ const PickList = ({ title = "", setAnimedon, setDrawer }) => {
 
       <View>
         <ScrollView style={{ marginBottom: 80 }}>
-          <DriverListItem />
+          <DriverListItem navigation={navigation} />
           <DriverListItem />
           <DriverListItem />
           <DriverListItem />

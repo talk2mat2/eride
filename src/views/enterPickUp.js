@@ -28,14 +28,14 @@ const EnterPickUp = ({ navigation, setLoading }) => {
   );
   const dispatch = useDispatch();
   const isLocationSet = () => {
-    if (myLocation) {
+    if (myLocation && pickup) {
       return false;
     } else {
       return true;
     }
   };
   const isDestinationSet = () => {
-    if (myDestination) {
+    if (myDestination && destin) {
       return false;
     } else {
       return true;

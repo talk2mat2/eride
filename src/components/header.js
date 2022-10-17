@@ -13,9 +13,11 @@ const Header = ({
   title = "",
   textStyle = {},
   children,
+  bgColor="",
   showNav = true,
   navigation,
   animate = false,
+  iconColor=""
 }) => {
   const Intro = new Animated.ValueXY({
     x: 0,
@@ -44,12 +46,12 @@ const Header = ({
     <Animated.View
       style={{
         ...styles.container,
-        transform: animate ? [{ translateY: Intro.y }] : [],
+        transform: animate ? [{ translateY: Intro.y }] : [], backgroundColor:bgColor||colors.primary
       }}
     >
       {showNav && (
         <TouchableOpacity style={{ paddingRight:20 }} onPress={handleBack}>
-          <FontAwesome5 name="arrow-left" size={25} color={colors.white} />
+          <FontAwesome5 name="arrow-left" size={25} color={iconColor||colors.white} />
         </TouchableOpacity>
       )}
       <Text style={{ ...fonts.h1, marginLeft: 30, fontSize: 30, ...textStyle }}>
