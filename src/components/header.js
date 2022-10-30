@@ -13,6 +13,7 @@ const Header = ({
   title = "",
   textStyle = {},
   children,
+  HeaderIcon=null,
   bgColor="",
   showNav = true,
   navigation,
@@ -54,7 +55,12 @@ const Header = ({
           <FontAwesome5 name="arrow-left" size={25} color={iconColor||colors.white} />
         </TouchableOpacity>
       )}
-      <Text style={{ ...fonts.h1, marginLeft: 30, fontSize: 30, ...textStyle }}>
+      {HeaderIcon && (
+        <TouchableOpacity style={{ paddingRight:10 }} >
+         {HeaderIcon}
+        </TouchableOpacity>
+      )}
+      <Text style={{ ...fonts.h1,  fontSize: 30, ...textStyle }}>
         {title}
       </Text>
       <View

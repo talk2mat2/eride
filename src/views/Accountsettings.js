@@ -47,22 +47,15 @@ const AccountSettings = ({ navigation }) => {
       </View>
       <View style={{ paddingHorizontal: 10, marginTop: 20 }}>
         <Divider style={{ ...styles.hr, marginTop: 14, marginBottom: 20 }} />
-        <TouchableNativeFeedback>
+       
+        {/* <TouchableNativeFeedback>
           <View style={{ marginVertical: 4, padding: 9 }}>
             <Text style={{ ...fonts.h2 }}>Manage Trusted Contacts</Text>
             <Text style={{ ...fonts.p, fontSize: 14, color: colors.grey2 }}>
               share your trip status with your loved onve s ina single tap
             </Text>
           </View>
-        </TouchableNativeFeedback>
-        <TouchableNativeFeedback>
-          <View style={{ marginVertical: 4, padding: 9 }}>
-            <Text style={{ ...fonts.h2 }}>Manage Trusted Contacts</Text>
-            <Text style={{ ...fonts.p, fontSize: 14, color: colors.grey2 }}>
-              share your trip status with your loved onve s ina single tap
-            </Text>
-          </View>
-        </TouchableNativeFeedback>
+        </TouchableNativeFeedback> */}
         <TouchableNativeFeedback>
           <View style={{ marginVertical: 4, padding: 9 }}>
             <Text style={{ ...fonts.h2 }}>Verify Your Ride</Text>

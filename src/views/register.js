@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Avatar, Divider } from "react-native-paper";
 import WithSpinner from "../components/withspinner";
 import { useMutations } from "../services/api";
+import { values } from "lodash";
 
 const Register = ({ navigation, setLoading, route, loading }) => {
   const { mutate } = useMutations();
@@ -35,10 +36,13 @@ const Register = ({ navigation, setLoading, route, loading }) => {
               type: "normal",
             });
             setTimeout(() => {
+              console.log("hell",datas)
               return navigation.navigate("otpView", {
                 user_id: response.user_id,
                 otp: response.otp,
+                email: datas?.email || "Your email",
               });
+            
             }, 2000);
           }
           if (response?.created == 0) {
@@ -49,6 +53,7 @@ const Register = ({ navigation, setLoading, route, loading }) => {
               return navigation.navigate("otpView", {
                 user_id: response.user_id,
                 otp: response.otp,
+                email: datas?.email || "Your email",
               });
             }, 2000);
           }
@@ -60,6 +65,7 @@ const Register = ({ navigation, setLoading, route, loading }) => {
               return navigation.navigate("login", {
                 user_id: response.user_id,
                 otp: response.otp,
+                email: datas?.email || "Your email",
               });
             }, 2000);
           }

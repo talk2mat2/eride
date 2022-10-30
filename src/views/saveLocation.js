@@ -16,10 +16,13 @@ import AutoCompleteList from "../components/autocompleteList";
 import { useSelector, useDispatch } from "react-redux";
 import corsapi from "../services/corsapi";
 import WithSpinner from "../components/withspinner";
-import { setDestination, setMylocation } from "../redux/reducers/locationSlice";
-const EnterPickUp = ({ navigation, setLoading }) => {
+import {  setDestination, setMylocation } from "../redux/reducers/locationSlice";
+import { appToast } from "../helpers";
+import { saveDestination } from "../redux/reducers/history";
+const SaveLocation = ({ navigation, setLoading }) => {
   const [pickup, setPickUp] = React.useState("");
   const [destin, setDestin] = React.useState("");
+  const { show } = appToast();
   const [predictions, setPredictions] = React.useState([]);
   const myLocation = useSelector(({ myLocation }) => myLocation?.myLocation);
   const [focused, setFocused] = React.useState("");
@@ -58,7 +61,9 @@ const EnterPickUp = ({ navigation, setLoading }) => {
       });
   };
   const handleplaces = async (data) => {
+  
     const { placesid } = data;
+    console.log(placesid)
     setLoading(true);
     await corsapi
       .getByPlacesId(placesid)
@@ -68,29 +73,20 @@ const EnterPickUp = ({ navigation, setLoading }) => {
         const lat = res.result.geometry.location.lat;
         const address = res.result.formatted_address;
         // console.log(lng, lat, address);
-        if (focused === "myLocation") {
-          setPredictions([]);
-          setPickUp(address);
-          dispatch(
-            setMylocation({
-              lat: lat,
-              lng: lng,
-              address: address,
-            })
-          );
-        }
-        if (focused === "myDestination") {
-          setPredictions([]);
-          setDestin(address);
-          dispatch(
-            setDestination({
-              lat: lat,
-              lng: lng,
-              address: address,
-            })
-          );
-          navigation.navigate("withmap");
-        }
+        setPredictions([]);
+        setPickUp(address);
+        dispatch(
+          saveDestination({
+            lat: lat,
+            lng: lng,
+            address: address,
+            place_id:placesid
+          })
+        );
+        show("location Saved", {
+          type: "normal",
+        });
+        return navigation.goBack()
         // return await handleToClick(lng, lat, address);
       })
       .catch((err) => {
@@ -100,20 +96,14 @@ const EnterPickUp = ({ navigation, setLoading }) => {
 
     // return await handleToClick(lng, lat, address)
   };
-  useFocusEffect(
-    React.useCallback(() => {
-      if (myLocation?.address) {
-        setPickUp(myLocation?.address);
-      }
-    }, [])
-  );
+
   return (
     <View style={styles.container}>
       <Header
         animate={false}
         navigation={navigation}
         textStyle={{ fontSize: 25 }}
-        title="Locations"
+        title="Save New"
       >
         <TouchableOpacity>
           <MaterialCommunityIcons
@@ -133,15 +123,7 @@ const EnterPickUp = ({ navigation, setLoading }) => {
           isset={isLocationSet()}
         />
       </View>
-      <View style={{ paddingHorizontal: 20, marginTop: 4 }}>
-        <InputGroup
-          value={destin}
-          onChangeText={handleAutoSearch}
-          onFocus={() => setFocused("myDestination")}
-          autoFocus={isDestinationSet()}
-          isset={isDestinationSet()}
-        />
-      </View>
+
       <AutoCompleteList handleplaces={handleplaces} predictions={predictions} />
     </View>
   );
@@ -153,4 +135,4 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
 });
-export default WithSpinner(EnterPickUp);
+export default WithSpinner(SaveLocation);

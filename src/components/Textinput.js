@@ -11,6 +11,7 @@ const TextInputs = (
     value,
     onChangeText,
     onBlur,
+    disabled,
   },
   props
 ) => {
@@ -23,6 +24,7 @@ const TextInputs = (
         label={placeholder}
         onChangeText={onChangeText}
         onBlur={onBlur}
+        disabled={disabled}
         value={value}
         autoCapitalize={false}
       />

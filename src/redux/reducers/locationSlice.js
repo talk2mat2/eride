@@ -3,6 +3,7 @@ import { AsyncRemove } from "../../helpers";
 
 const initialState = {
   myLocation: null,
+  savedLocation: [],
   nearbyDrivers: [],
   myCity: null,
   myBustop1: null,
@@ -23,8 +24,9 @@ export const locationSlice = createSlice({
     setDestination: (state, action) => {
       state.myDestination = action.payload;
     },
+   
     addNearbyDrivers: (state, action) => {
-      console.log("called")
+      // console.log("called")
       if (state.nearbyDrivers.length > 0) {
         let exist = state.nearbyDrivers.findIndex(
           (item) => item.user_id == action.payload?.user_id
@@ -34,12 +36,10 @@ export const locationSlice = createSlice({
           prevLocation.longitude = action.payload.longitude;
           prevLocation.latitude = action.payload.latitude;
           state.nearbyDrivers[exist] = prevLocation;
-        } 
-        else {
+        } else {
           state.nearbyDrivers.push(action.payload);
         }
-      }
-      else {
+      } else {
         state.nearbyDrivers.push(action.payload);
       }
     },
@@ -47,7 +47,7 @@ export const locationSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setMylocation, setDestination, addNearbyDrivers } =
+export const { setMylocation, setDestination, addNearbyDrivers,setDestinatio} =
   locationSlice.actions;
 
 export default locationSlice.reducer;

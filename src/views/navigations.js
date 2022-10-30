@@ -39,6 +39,14 @@ import { calcDistanceLatLong } from "../helpers";
 import driverlogin from "./driverlogin";
 import driverregister from "./driverregister";
 import driverregistersuccess from "./driverregistersuccess";
+import DriverDash from "./driverdash";
+import RequestDetails from "./rqDetails";
+import About from "./about";
+import Terms from "./Terms";
+import Privacy from "./privacy";
+import Abouteride from "./abouteride";
+import Help from "./help";
+import saveLocation from "./saveLocation";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -192,6 +200,24 @@ function HomeNav() {
   );
 }
 
+function DriverHomeNav() {
+  return (
+    <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
+      <Tab.Screen
+        options={{ headerShown: false }}
+        name="Home"
+        component={DriverDash}
+      />
+
+      <Tab.Screen
+        options={{ headerShown: false }}
+        name="Profile"
+        component={Account}
+      />
+    </Tab.Navigator>
+  );
+}
+
 function Main({ setLoading }) {
   const user = useSelector(({ user }) => user);
   const [socketio, setSocketio] = React.useState(null);
@@ -254,12 +280,22 @@ function Main({ setLoading }) {
             { accuracy: Location.Accuracy.Balanced, distanceInterval: 1000 },
             async (data) => {
               // console.log("user",user.data.userData)
-              // latitude = data.coords.latitude;
+              // latitude = data.coords.latitud`e;
               // longitude = data.coords.longitude;
               socket.emit("store-location", {
+                ...user?.data.userData,
                 latitude: data.coords.latitude,
                 longitude: data.coords.longitude,
-                user_id:user.data.userData.id
+
+                // latitude: data.coords.latitude,
+                // longitude: data.coords.longitude,
+                // user_id: user.data.userData.id,
+                // user: {
+                //   phone: user.data.userData?.phone,
+                //   first_name: user.data.userData.first_name,
+                //   last_name: user.data.userData.last_name,
+                //   profile_pictured: user.data.userData.profile_pictured,
+                // },
               });
 
               // await corsapi
@@ -306,7 +342,6 @@ function Main({ setLoading }) {
             dispatch(addNearbyDrivers(data));
           }
         }
-       
       });
     } else {
       console.log("logged out");
@@ -364,7 +399,9 @@ function Main({ setLoading }) {
           <Stack.Screen
             options={{ headerShown: false, ...Rotate }}
             name="HomeNav"
-            component={HomeNav}
+            component={
+              user?.data?.userData?.role == "driver" ? DriverHomeNav : HomeNav
+            }
           />
           <Stack.Screen
             options={{ headerShown: false }}
@@ -416,8 +453,43 @@ function Main({ setLoading }) {
             name="driverdetails"
             component={DriverProfile}
           />
+          <Stack.Screen
+            options={{ headerShown: false, ...AnimateSide }}
+            name="rqdetails"
+            component={RequestDetails}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, ...AnimateSide }}
+            name="savelocation"
+            component={saveLocation}
+          />
         </>
       )}
+      <Stack.Screen
+        options={{ headerShown: false, ...AnimateSide }}
+        name="about"
+        component={About}
+      />
+      <Stack.Screen
+        options={{ headerShown: false, ...AnimateSide }}
+        name="terms"
+        component={Terms}
+      />
+      <Stack.Screen
+        options={{ headerShown: false, ...AnimateSide }}
+        name="privacy"
+        component={Privacy}
+      />
+      <Stack.Screen
+        options={{ headerShown: false, ...AnimateSide }}
+        name="abouteride"
+        component={Abouteride}
+      />
+      <Stack.Screen
+        options={{ headerShown: false, ...AnimateSide }}
+        name="help"
+        component={Help}
+      />
     </Stack.Navigator>
   );
 }

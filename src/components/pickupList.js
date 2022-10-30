@@ -12,12 +12,17 @@ import {
 } from "react-native";
 import { colors } from "../helpers/colors";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { fonts } from "../helpers/constants";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Buttons from "./buttons";
 import DriverListItem from "./diverListItem";
-const PickList = ({ title = "", setAnimedon, setDrawer ,navigation}) => {
+import { useSelector } from "react-redux";
+const PickList = ({ title = "", setAnimedon, setDrawer, navigation }) => {
   const [selected, setSelected] = React.useState(1);
+  const NearbyDrivers = useSelector(
+    ({ myLocation }) => myLocation?.nearbyDrivers
+  );
   const { width: deviceWidth, height: deviceHeight } = Dimensions.get("screen");
   const outcomePopper = React.useRef(
     new Animated.ValueXY({
@@ -118,15 +123,20 @@ const PickList = ({ title = "", setAnimedon, setDrawer ,navigation}) => {
 
       <View>
         <ScrollView style={{ marginBottom: 80 }}>
-          <DriverListItem navigation={navigation} />
-          <DriverListItem />
-          <DriverListItem />
-          <DriverListItem />
-          <DriverListItem />
-          <DriverListItem />
-          <DriverListItem />
-          <DriverListItem />
-          <DriverListItem />
+          {NearbyDrivers.lenght ? (
+            NearbyDrivers?.map((item) => (
+              <DriverListItem item={item} navigation={navigation} />
+            ))
+          ) : (
+            <View style={{ alignItems: "center", marginTop: "20%" }}>
+              <Ionicons
+                name="warning-outline"
+                size={30}
+                color={colors.primary}
+              />
+              <Text style={{ ...fonts.p ,color: colors.grey2, marginTop:9 }}>No Nearby Drivers Found</Text>
+            </View>
+          )}
         </ScrollView>
       </View>
     </Animated.View>

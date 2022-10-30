@@ -30,9 +30,11 @@ const Account = ({ navigation }) => {
           //   }}
         >
           <Text
-            style={{ ...fonts.h1, fontSize: 30, lineHeight: 29, marginTop: 60 }}
+            style={{ ...fonts.h1, fontSize: 30, lineHeight: 29, marginTop: 60,textAlign:"center" }}
           >
-            {user?.userData?.first_name}{"\n"}{user?.userData?.last_name}
+            {user?.userData?.first_name}
+            {"\n"}
+            {user?.userData?.last_name}
           </Text>
           <Avatar.Image
             style={{
@@ -46,7 +48,7 @@ const Account = ({ navigation }) => {
       </View>
 
       <View style={{ marginTop: "20%", paddingHorizontal: 20 }}>
-        <TouchableNativeFeedback>
+        <TouchableNativeFeedback onPress={() => handleNavigation("help")}>
           <View
             style={{
               flexDirection: "row",
@@ -76,7 +78,7 @@ const Account = ({ navigation }) => {
             </Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback>
+        {/* <TouchableNativeFeedback>
           <View
             style={{
               flexDirection: "row",
@@ -90,7 +92,7 @@ const Account = ({ navigation }) => {
               Trips
             </Text>
           </View>
-        </TouchableNativeFeedback>
+        </TouchableNativeFeedback> */}
       </View>
       <View style={{ marginTop: "2%", paddingHorizontal: 20 }}>
         <Divider style={{ backgroundColor: colors.primary }} />
@@ -123,7 +125,7 @@ const Account = ({ navigation }) => {
               <Text style={{ ...fonts.h2, marginLeft: 10 }}>Settings</Text>
             </View>
           </TouchableNativeFeedback>
-          <TouchableNativeFeedback>
+          <TouchableNativeFeedback onPress={() => handleNavigation("about")}>
             <View
               style={{
                 flexDirection: "row",
@@ -133,9 +135,15 @@ const Account = ({ navigation }) => {
               }}
             >
               <Image source={require("../../assets/Vector3.png")} />
-              <Text style={{ ...fonts.h2, marginLeft: 10 }}>Legal</Text>
+              <Text style={{ ...fonts.h2, marginLeft: 10 }}>About</Text>
             </View>
           </TouchableNativeFeedback>
+        </View>
+        <View style={{ alignItems: "center", marginTop: "10%" }}>
+          <Text style={{ ...fonts.h2, fontSize: 30 }}>Eride</Text>
+          <Text style={{ ...fonts.p, color: colors.grey2 }}>
+            Version 1.100.1
+          </Text>
         </View>
       </View>
     </View>

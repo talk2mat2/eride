@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { Button, Title, Paragraph } from "react-native-paper";
 import {
   Tabs,
@@ -13,27 +13,39 @@ import Wallet from "./wallet";
 const WalletMaint = ({ navigation }) => {
   return (
     <View style={{ ...styles.container }}>
-      <Header  textStyle={{ fontSize: 25 }} navigation={navigation} animate={true} title="My Wallet" />
+      <Header
+        animate={true}
+        textStyle={{ fontSize: 25 }}
+        navigation={navigation}
+   
+        title="My Wallet"
+      />
 
-      <View style={{ flex:1 ,marginTop:10}}>
-        <Tabs theme={{ fontFamily:" SourceSansProSemiBold" }}
-        // defaultIndex={0} // default = 0
-        // uppercase={false} // true/false | default=true | labels are uppercase
-        // showTextLabel={false} // true/false | default=false (KEEP PROVIDING LABEL WE USE IT AS KEY INTERNALLY + SCREEN READERS)
-        // iconPosition // leading, top | default=leading
-        style={{ backgroundColor:'#fff',width:"60%",alignSelf:"center",borderRadius:2}} // works the same as AppBar in react-native-paper
-        // dark={false} // works the same as AppBar in react-native-paper
-        // theme={} // works the same as AppBar in react-native-paper
-        // mode="scrollable" // fixed, scrollable | default=fixed
-        // onChangeIndex={(newIndex) => {}} // react on index change
-        // showLeadingSpace={true} //  (default=true) show leading space in scrollable tabs inside the header
-        // disableSwipe={false} // (default=false) disable swipe to left/right gestures
+      <View style={{ flex: 1, marginTop: 10 }}>
+        <Tabs
+          theme={{ fontFamily: " SourceSansProSemiBold" }}
+          // defaultIndex={0} // default = 0
+          // uppercase={false} // true/false | default=true | labels are uppercase
+          // showTextLabel={false} // true/false | default=false (KEEP PROVIDING LABEL WE USE IT AS KEY INTERNALLY + SCREEN READERS)
+          // iconPosition // leading, top | default=leading
+          style={{
+            backgroundColor: "#fff",
+            width: "60%",
+            alignSelf: "center",
+            borderRadius: 2,
+          }} // works the same as AppBar in react-native-paper
+          // dark={false} // works the same as AppBar in react-native-paper
+          // theme={} // works the same as AppBar in react-native-paper
+          // mode="scrollable" // fixed, scrollable | default=fixed
+          // onChangeIndex={(newIndex) => {}} // react on index change
+          // showLeadingSpace={true} //  (default=true) show leading space in scrollable tabs inside the header
+          // disableSwipe={false} // (default=false) disable swipe to left/right gestures
         >
-          <TabScreen  label="wallet"  sty>
+          <TabScreen label="wallet">
             <Wallet />
           </TabScreen>
           <TabScreen label="Fund wallet">
-          <FundWallet/>
+            <FundWallet />
           </TabScreen>
         </Tabs>
       </View>

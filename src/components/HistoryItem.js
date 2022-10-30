@@ -4,7 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../helpers/colors";
 import { fonts } from "../helpers/constants";
-const HistoryItem = () => {
+const HistoryItem = ({item}) => {
   return (
     <TouchableNativeFeedback>
       <View style={styles.container}>
@@ -18,7 +18,7 @@ const HistoryItem = () => {
               fontSize: 20,
             }}
           >
-            Ikeja buststop
+            {item?.bustop}
           </Text>
           <Text
             style={{
@@ -28,7 +28,7 @@ const HistoryItem = () => {
               color: colors.grey2,
             }}
           >
-            Ikeja buststop
+          {item?.address}
           </Text>
         </View>
       </View>

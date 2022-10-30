@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import MapViewDirections from "react-native-maps-directions";
 import getEnvVars from "../services/env";
 import MyLocIcon from "./mylocIcon";
+import { colors } from "../helpers/colors";
 const api_key = getEnvVars().google_key;
 
 const MapViews = ({ animedone }) => {
@@ -71,7 +72,7 @@ const MapViews = ({ animedone }) => {
         zoomEnabled={true}
         showsUserLocation={true}
       >
-        {myLocation.lat && myDestination.lat && (
+        {/* {myLocation.lat && myDestination.lat && (
           <MapViewDirections
             origin={items()[0]}
             destination={items()[1]}
@@ -79,7 +80,16 @@ const MapViews = ({ animedone }) => {
             strokeWidth={3}
             strokeColor="hotpink"
           />
+        )} */}
+        {myLocation.lat && myDestination.lat && (
+          <Polyline
+            coordinates={items()}
+            strokeColor={colors.lightblue} // fallback for when `strokeColors` is not supported by the map-provider
+            strokeColors={["#7F0000"]}
+            strokeWidth={3}
+          />
         )}
+
         {myLocation ? (
           <Marker
             coordinate={{
@@ -90,7 +100,20 @@ const MapViews = ({ animedone }) => {
             description={""}
             pinColor={"green"}
           >
-            <MyLocIcon  title="Start"/>
+            <MyLocIcon title="Start" />
+          </Marker>
+        ) : null}
+        {items()?.length > 1 ? (
+          <Marker
+            coordinate={{
+              latitude: items()[items()?.length - 1]?.latitude,
+              longitude: items()[items()?.length - 1]?.longitude,
+            }}
+            title={"Start location"}
+            description={""}
+            pinColor={"green"}
+          >
+            <MyLocIcon title="End" />
           </Marker>
         ) : null}
       </MapView>

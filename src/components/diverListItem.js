@@ -6,22 +6,34 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Avatar } from "react-native-paper";
+import { appToast } from "../helpers";
 import { colors } from "../helpers/colors";
 import { fonts } from "../helpers/constants";
 import Buttons from "./buttons";
 
-const DriverListItem = ({ navigation }) => {
+const DriverListItem = ({ navigation, item }) => {
   const [loading, setLoading] = React.useState(false);
   const [reqSent, setReq] = React.useState(false);
+  const { show } = appToast();
   const handlesendReq = () => {
     setLoading(true);
     setTimeout(() => {
       setReq(true);
       setLoading(false);
+      return show("Request sent to driver", {
+        type: "normal",
+      });
     }, 3000);
   };
   return (
-    <TouchableNativeFeedback onPress={()=>navigation && navigation.navigate("driverdetails")}>
+    <TouchableNativeFeedback
+      onPress={() =>
+        navigation &&
+        navigation.navigate("driverdetails", {
+          ...item,
+        })
+      }
+    >
       <View
         style={{
           flexDirection: "row",
@@ -31,9 +43,9 @@ const DriverListItem = ({ navigation }) => {
         }}
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Avatar.Image style={{ backgroundColor: colors.grey1 }} />
+          <Avatar.Image source={item?.profile_pictured||""}  style={{ backgroundColor: colors.grey1 }} />
           <Text style={{ ...fonts.p, marginLeft: 10, fontSize: 18 }}>
-            Rachel Dave
+            {item?.first_name}  {item?.last_name}
           </Text>
         </View>
         {!loading ? (

@@ -6,9 +6,9 @@ import {SlideItem1,SlideItem2,SlideItem3} from "./sliderItem";
 const Slider = () => {
   return (
     <Swiper autoplay={true}  autoplayTimeout={4} style={styles.wrapper} showsButtons={false}>
-      <SlideItem1 />
-      <SlideItem2 />
-      <SlideItem3 />
+      <SlideItem1 key={1} />
+      <SlideItem2  key={2}/>
+      <SlideItem3 key={3} />
     </Swiper>
   );
 };

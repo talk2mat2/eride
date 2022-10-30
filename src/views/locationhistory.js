@@ -14,7 +14,11 @@ import { colors } from "../helpers/colors";
 import AutoCompleteList from "../components/autocompleteList";
 import { fonts } from "../helpers/constants";
 import HistoryItem from "../components/HistoryItem";
+import { useSelector } from "react-redux";
 const LocationHistory = ({ navigation }) => {
+  const locationHistory = useSelector(
+    ({ historySlice }) => historySlice.locationHistory
+  );
   return (
     <View style={styles.container}>
       <Header
@@ -24,11 +28,10 @@ const LocationHistory = ({ navigation }) => {
         title="Location history"
       />
 
-      <View style={{ marginTop:"10%"}}>
- <HistoryItem/>
- <HistoryItem/>
- <HistoryItem/>
- <HistoryItem/>
+      <View style={{ marginTop: "10%" }}>
+        {locationHistory?.map((item, index) => (
+          <HistoryItem key={index} item={item} />
+        ))}
       </View>
       {/* <AutoCompleteList /> */}
     </View>

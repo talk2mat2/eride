@@ -25,7 +25,7 @@ const OtpView = ({ navigation, setLoading, route }) => {
   const { mutate } = useMutations();
   const [value, setValue] = React.useState("");
   const [btnDisabled, setBtnDisabled] = React.useState(false);
-  const { user_id, otp } = route.params;
+  const { user_id, otp, email } = route.params;
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -69,13 +69,14 @@ const OtpView = ({ navigation, setLoading, route }) => {
         },
         onError: (error) => {
           setLoading(false);
-          setBtnDisabled(false)
-          console.log(error.response)
+          setBtnDisabled(false);
+          console.log(error.response);
           show(error?.error || "an error occured");
         },
       }
     );
   };
+ 
   React.useEffect(() => {
     if (value.length == CELL_COUNT) {
       if (value != otp) {
@@ -107,7 +108,7 @@ const OtpView = ({ navigation, setLoading, route }) => {
           Otp Verification
         </Text>
         <Text style={{ ...fonts.p, color: colors.grey2, marginTop: 8 }}>
-          Enter the OTP sent to 000000000000
+          Enter the OTP sent to {email}
         </Text>
       </View>
       <View style={{ marginTop: 2, paddingHorizontal: "20%" }}>
@@ -139,7 +140,11 @@ const OtpView = ({ navigation, setLoading, route }) => {
         </Text>
       </View>
       <View style={{ alignItems: "center", marginTop: 22 }}>
-        <Buttons disabled={btnDisabled} textStyles={{ fontSize: 16 }} title="VERIFY & CONTINUE" />
+        <Buttons
+          disabled={btnDisabled}
+          textStyles={{ fontSize: 16 }}
+          title="VERIFY & CONTINUE"
+        />
       </View>
     </View>
   );

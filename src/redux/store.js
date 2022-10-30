@@ -7,15 +7,17 @@ import usersReducer from "./reducers/usersSlice";
 import locationSlice from "./reducers/locationSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import historySlice from "./reducers/history";
 
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["user"],
+  whitelist: ["user", "historySlice"],
 };
 
 const rootReducer = combineReducers({
   user: usersReducer,
+  historySlice: historySlice,
   myLocation: locationSlice,
 });
 
