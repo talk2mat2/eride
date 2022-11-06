@@ -5,6 +5,7 @@ import Home from "./home";
 import Logs from "./logs";
 import Account from "./account";
 import MyTabBar from "../components/tabbar";
+import * as Device from "expo-device";
 import {
   createStackNavigator,
   TransitionSpecs,
@@ -12,6 +13,7 @@ import {
 } from "@react-navigation/stack";
 import EnterPickUp from "./enterPickUp";
 import AccountSettings from "./Accountsettings";
+import * as Notifications from "expo-notifications";
 import SavedLocation from "./savedLocation";
 import LocationHistory from "./locationhistory";
 import Wallet from "./wallet";
@@ -47,6 +49,17 @@ import Privacy from "./privacy";
 import Abouteride from "./abouteride";
 import Help from "./help";
 import saveLocation from "./saveLocation";
+import Messages from "./messages";
+import ChangePass from "./changeapasss";
+import login from "./login";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -226,6 +239,55 @@ function Main({ setLoading }) {
   const isLoggedIn = user?.isLoggedIn;
   const dispatch = useDispatch();
   const myLocation = useSelector(({ myLocation }) => myLocation?.myLocation);
+  const [expoPushToken, setExpoPushToken] = React.useState("");
+  const [notification, setNotification] = React.useState(false);
+  const notificationListener = React.useRef();
+  const responseListener = React.useRef();
+
+  const updatePushToken = (datas) => {
+    mutate(
+      {
+        key: "updatetoken",
+        method: "post",
+        data: datas,
+      },
+      {
+        onSuccess: (response) => {},
+        onError: (error) => {},
+      }
+    );
+  };
+
+  React.useEffect(() => {
+    //driver update his token for push service
+    if (isLoggedIn &&user?.data?.userData?.role == "driver") {
+      registerForPushNotificationsAsync().then((token) => {
+        setExpoPushToken(token);
+        updatePushToken({
+          pushtoken: expoPushToken,
+          driverid: user?.uuserData.id,
+        });
+        console.log("token", token);
+      });
+
+      notificationListener.current =
+        Notifications.addNotificationReceivedListener((notification) => {
+          setNotification(notification);
+        });
+
+      responseListener.current =
+        Notifications.addNotificationResponseReceivedListener((response) => {
+          console.log(response);
+        });
+    }
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   React.useEffect(() => {
     (async () => {
@@ -359,7 +421,7 @@ function Main({ setLoading }) {
           <Stack.Screen
             options={{ headerShown: false, ...AnimateDown }}
             name="login"
-            component={Login}
+            component={login}
           />
           <Stack.Screen
             options={{ headerShown: false, ...AnimateDown }}
@@ -463,6 +525,11 @@ function Main({ setLoading }) {
             name="savelocation"
             component={saveLocation}
           />
+          <Stack.Screen
+            options={{ headerShown: false, ...AnimateSide }}
+            name="Messages"
+            component={Messages}
+          />
         </>
       )}
       <Stack.Screen
@@ -490,8 +557,45 @@ function Main({ setLoading }) {
         name="help"
         component={Help}
       />
+      <Stack.Screen
+        options={{ headerShown: false, ...AnimateSide }}
+        name="changepass"
+        component={ChangePass}
+      />
     </Stack.Navigator>
   );
+}
+async function registerForPushNotificationsAsync() {
+  let token;
+
+  if (Platform.OS === "android") {
+    await Notifications.setNotificationChannelAsync("default", {
+      name: "default",
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: "#FF231F7C",
+    });
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== "granted") {
+      alert("Failed to get push token for push notification!");
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert("Must use physical device for Push Notifications");
+  }
+
+  return token;
 }
 
 const styles = StyleSheet.create({

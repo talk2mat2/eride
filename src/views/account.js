@@ -30,7 +30,13 @@ const Account = ({ navigation }) => {
           //   }}
         >
           <Text
-            style={{ ...fonts.h1, fontSize: 30, lineHeight: 29, marginTop: 60,textAlign:"center" }}
+            style={{
+              ...fonts.h1,
+              fontSize: 30,
+              lineHeight: 29,
+              marginTop: 60,
+              textAlign: "center",
+            }}
           >
             {user?.userData?.first_name}
             {"\n"}
@@ -97,7 +103,11 @@ const Account = ({ navigation }) => {
       <View style={{ marginTop: "2%", paddingHorizontal: 20 }}>
         <Divider style={{ backgroundColor: colors.primary }} />
         <View style={{ marginTop: "2%" }}>
-          <TouchableNativeFeedback>
+          <TouchableNativeFeedback
+            onPress={() => {
+              navigation.navigate("Messages");
+            }}
+          >
             <View
               style={{
                 flexDirection: "row",

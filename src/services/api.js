@@ -5,7 +5,8 @@ import getEnvVars from "./env";
 // import https from "https"
 
 const baseUrl = getEnvVars().apiUrl;
-console.log(baseUrl);
+const baseUrl2 = getEnvVars().apiUrl2;
+console.log(baseUrl2);
 // axios.defaults.httpAgent=new https.Agent({
 //   rejectUnauthorized:false
 // })

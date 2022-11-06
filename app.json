@@ -14,20 +14,43 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCdL-pBPEaDtnBbxDs9X7WYyRScmnBfjsQ"
+        }
+      },
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.essentials.eride"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "767e705f-8541-44f2-84d3-ed9586dc7254"
+      }
     }
-  }
+  },
+  "plugins": [
+    [
+      "expo-notifications",
+      {
+        "icon": "./local/assets/notification-icon.png",
+        "color": "#ffffff",
+        "sounds": [
+          "./local/assets/notification-sound.wav",
+          "./local/assets/notification-sound-other.wav"
+        ]
+      }
+    ]
+  ]
 }

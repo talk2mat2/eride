@@ -7,8 +7,20 @@ import LogsItem from "../components/logsItem";
 import RequestItem from "../components/requestItem";
 import { fonts } from "../helpers/constants";
 import { useSelector } from "react-redux";
+import { useClientQuery } from "../services/api";
+import { useFocusEffect } from "@react-navigation/native";
 const DriverDash = ({ navigation }) => {
   const user = useSelector(({ user }) => user?.data);
+  const { data, isError, isLoading, refetch } = useClientQuery(
+    "request/" + user?.userData?.id
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      refetch();
+      console.log(data)
+    }, [])
+  );
   return (
     <View style={styles.container}>
       <Header
@@ -30,10 +42,17 @@ const DriverDash = ({ navigation }) => {
         >
           <Text style={{ ...fonts.h2, fontWeight: "bold" }}> New Request</Text>
           <ScrollView>
-            {false ? (
-              [1, 1, 2, 3, 4].map((item, index) => (
-                <RequestItem navigation={navigation} key={index} />
-              ))
+            {data?.data?.filter((item) => item.is_accepted == 0)?.length > 0 ? (
+              data?.data
+                ?.filter((item) => item.is_accepted == 0)
+                .map((item, index) => (
+                  <RequestItem
+                    refetch={refetch}
+                    item={item}
+                    navigation={navigation}
+                    key={index}
+                  />
+                ))
             ) : (
               <View style={{ alignItems: "center", marginTop: "20%" }}>
                 <Ionicons
@@ -41,7 +60,7 @@ const DriverDash = ({ navigation }) => {
                   size={30}
                   color={colors.primary}
                 />
-                <Text style={{ color: colors.grey2 }}>No New Reqiest</Text>
+                <Text style={{ color: colors.grey2 }}>No New Request</Text>
               </View>
             )}
           </ScrollView>
@@ -56,14 +75,19 @@ const DriverDash = ({ navigation }) => {
           }}
         >
           <Text style={{ ...fonts.h2, fontWeight: "bold" }}>
-            {" "}
             Request History
           </Text>
           <ScrollView>
-            {true ? (
-              [1, 1, 2, 3, 4].map((item, index) => (
-                <RequestItem navigation={navigation} key={index} />
-              ))
+            {data?.data?.filter((item) => item.is_accepted != 0)?.length > 0 ? (
+              data?.data
+                ?.filter((item) => item.is_accepted != 0)
+                .map((item, index) => (
+                  <RequestItem
+                    item={item}
+                    navigation={navigation}
+                    key={index}
+                  />
+                ))
             ) : (
               <View style={{ alignItems: "center", marginTop: "20%" }}>
                 <Ionicons

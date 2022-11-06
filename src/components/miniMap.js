@@ -6,7 +6,7 @@ import { colors } from "../helpers/colors";
 import { fonts } from "../helpers/constants";
 import MyLocIcon from "./mylocIcon";
 
-const SlideItems = () => {
+const MiniMap = () => {
   const myLocation = useSelector(({ myLocation }) => myLocation?.myLocation);
   const [mapNearDrivers, setMapnearDrivers] = React.useState([]);
   const NearbyDrivers = useSelector(
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
-export default SlideItems;
+export default MiniMap;

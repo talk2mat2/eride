@@ -5,13 +5,19 @@ import Header from "../components/header";
 import TransferItem from "../components/transferItems";
 import { colors } from "../helpers/colors";
 import { fonts } from "../helpers/constants";
-const Wallet = ({navigation}) => {
+function numberWithCommas(x) {
+  if(!x){
+    return 0.00
+  }
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+const Wallet = ({navigation,data}) => {
   return (
     <View style={styles.container}>
    
       <View style={{ marginBottom: 10 }}>
         <View style={styles.HeaderItem}>
-          <Text style={{ ...fonts.h2,fontSize:40 }}># 40345.00</Text>
+          <Text style={{ ...fonts.h2,fontSize:40 }}>N{numberWithCommas(data?.data?.[0]?.amount)}</Text>
           <Text style={{ ...fonts.h2,fontSize:20,color:colors.grey2 }}>Total balance</Text>
         </View>
       </View>
@@ -21,6 +27,7 @@ const Wallet = ({navigation}) => {
         </View>
         <View style={{ height: "80%", marginTop: 10 }}>
           <ScrollView>
+            {/* <TransferItem />
             <TransferItem />
             <TransferItem />
             <TransferItem />
@@ -28,8 +35,7 @@ const Wallet = ({navigation}) => {
             <TransferItem />
             <TransferItem />
             <TransferItem />
-            <TransferItem />
-            <TransferItem />
+            <TransferItem /> */}
           </ScrollView>
         </View>
       </View>

@@ -12,6 +12,7 @@ const TextInputs = (
     onChangeText,
     onBlur,
     disabled,
+    ...rest
   },
   props
 ) => {
@@ -27,6 +28,7 @@ const TextInputs = (
         disabled={disabled}
         value={value}
         autoCapitalize={false}
+        {...rest}
       />
     </View>
   );

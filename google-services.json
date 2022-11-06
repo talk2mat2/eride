@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "188151167703",
+    "project_id": "eride-17d2c",
+    "storage_bucket": "eride-17d2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188151167703:android:1b430d73b845f13e7e0e92",
+        "android_client_info": {
+          "package_name": "com.essentials.eride"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188151167703-s0l69s1oo9mjqnpj7c9566c4hdvbf08p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhl_hIBIFcOuuR4sLXfb5XbYhVReMCBDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188151167703-s0l69s1oo9mjqnpj7c9566c4hdvbf08p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

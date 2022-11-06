@@ -1,3 +1,4 @@
+import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Button, Title, Paragraph } from "react-native-paper";
@@ -7,45 +8,49 @@ import {
   useTabIndex,
   useTabNavigation,
 } from "react-native-paper-tabs";
+import { useSelector } from "react-redux";
 import Header from "../components/header";
+import { useClientQuery } from "../services/api";
 import FundWallet from "./fundwallet";
 import Wallet from "./wallet";
 const WalletMaint = ({ navigation }) => {
+  const user = useSelector(({ user }) => user?.data);
+  const { data, isError, isLoading, refetch } = useClientQuery("wallet/"+user?.userData?.id
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (true) {
+        refetch();
+      }
+      // refetch()
+      console.log(data?.data?.[0]?.amount);
+    }, [isLoading])
+  );
   return (
     <View style={{ ...styles.container }}>
       <Header
         animate={true}
         textStyle={{ fontSize: 25 }}
         navigation={navigation}
-   
         title="My Wallet"
       />
 
       <View style={{ flex: 1, marginTop: 10 }}>
         <Tabs
           theme={{ fontFamily: " SourceSansProSemiBold" }}
-          // defaultIndex={0} // default = 0
-          // uppercase={false} // true/false | default=true | labels are uppercase
-          // showTextLabel={false} // true/false | default=false (KEEP PROVIDING LABEL WE USE IT AS KEY INTERNALLY + SCREEN READERS)
-          // iconPosition // leading, top | default=leading
           style={{
             backgroundColor: "#fff",
-            width: "60%",
-            alignSelf: "center",
+
             borderRadius: 2,
-          }} // works the same as AppBar in react-native-paper
-          // dark={false} // works the same as AppBar in react-native-paper
-          // theme={} // works the same as AppBar in react-native-paper
-          // mode="scrollable" // fixed, scrollable | default=fixed
-          // onChangeIndex={(newIndex) => {}} // react on index change
-          // showLeadingSpace={true} //  (default=true) show leading space in scrollable tabs inside the header
-          // disableSwipe={false} // (default=false) disable swipe to left/right gestures
+            width: "100%",
+          }}
         >
           <TabScreen label="wallet">
-            <Wallet />
+            <Wallet data={data} />
           </TabScreen>
           <TabScreen label="Fund wallet">
-            <FundWallet />
+            <FundWallet refetch={refetch} data={data} />
           </TabScreen>
         </Tabs>
       </View>

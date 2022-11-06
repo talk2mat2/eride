@@ -5,22 +5,32 @@ const ENV = {
   dev: {
     // apiUrl: "https://jsonplaceholder.typicode.com/tordos",
     apiUrl: "https://echat.essentialdirect.ng/api",
+    apiUrl2: "http://localhost:8000/api",
     // apiUrl: "http://192.168.43.139:8080/api/v1",
     // apiUrl:"http://localhost:5262/api/v1",
     amplitudeApiKey: null,
     google_key: "AIzaSyCdL-pBPEaDtnBbxDs9X7WYyRScmnBfjsQ",
+    paystackclient: "pk_test_9df268d64ddb8974fb23c5d9e843eb5b57261938",
   },
   staging: {
-    apiUrl: "https://uat.myapi.com/api",
-    amplitudeApiKey: "[Enter your key here]",
-    google_key: "",
-    // Add other keys you want here
+   // apiUrl: "https://jsonplaceholder.typicode.com/tordos",
+   apiUrl: "https://echat.essentialdirect.ng/api",
+   apiUrl2: "http://localhost:8000/api",
+   // apiUrl: "http://192.168.43.139:8080/api/v1",
+   // apiUrl:"http://localhost:5262/api/v1",
+   amplitudeApiKey: null,
+   google_key: "AIzaSyCdL-pBPEaDtnBbxDs9X7WYyRScmnBfjsQ",
+   paystackclient: "pk_test_9df268d64ddb8974fb23c5d9e843eb5b57261938",
   },
   prod: {
-    apiUrl: "https://prod.myapi.com/api",
-    amplitudeApiKey: "[Enter your key here]",
-    // Add other keys you want here
-    google_key: "",
+   // apiUrl: "https://jsonplaceholder.typicode.com/tordos",
+   apiUrl: "https://echat.essentialdirect.ng/api",
+   apiUrl2: "http://localhost:8000/api",
+   // apiUrl: "http://192.168.43.139:8080/api/v1",
+   // apiUrl:"http://localhost:5262/api/v1",
+   amplitudeApiKey: null,
+   google_key: "AIzaSyCdL-pBPEaDtnBbxDs9X7WYyRScmnBfjsQ",
+   paystackclient: "pk_test_9df268d64ddb8974fb23c5d9e843eb5b57261938",
   },
 };
 

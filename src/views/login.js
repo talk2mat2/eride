@@ -28,7 +28,7 @@ const Login = ({ navigation, setLoading, loading }) => {
   const dispatch = useDispatch();
   const subMitdata = (datas) => {
     Keyboard.dismiss();
-    console.log(datas);
+    // console.log(datas);
     mutate(
       {
         key: "login",

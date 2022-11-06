@@ -1,19 +1,61 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Header from "../components/header";
+import PayStack from "../components/paystack";
 import TransferItem from "../components/transferItems";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { colors } from "../helpers/colors";
 import { Avatar } from "react-native-paper";
 import { fonts } from "../helpers/constants";
 import CardListrItems from "../components/cardslistItem";
-const FundWallet = ({ navigation }) => {
-  return (
+import TextInputs from "../components/Textinput";
+import { useMutations } from "../services/api";
+import { useSelector } from "react-redux";
+import WithSpinner from "../components/withspinner";
+import { appToast } from "../helpers";
+const FundWallet = ({ navigation, setLoading ,refetch}) => {
+   const { show :shows } = appToast();
+  const [show, setShow] = React.useState(false);
+  const user = useSelector(({ user }) => user?.data);
+  // console.log(user?.userData)
+  const [amount, setAmount] = React.useState(1000);
+  const { mutate } = useMutations();
+  const subMitdata = (datas) => {
+    setLoading(true);
+    mutate(
+      {
+        key: "wallet/" + user?.userData?.id,
+        method: "post",
+        data: datas,
+      },
+      {
+        onSuccess: (response) => {
+          setLoading(false);
+          refetch()
+console.log(response)
+          if (response?.message) {
+            return shows(response?.message, {
+              type: "normal",
+            });
+          } else {
+            Alert.alert("Payment was successfull");
+          }
+        
+        },
+        onError: (error) => {
+          setLoading(false);
+          shows(error?.statusText || "an error occured");
+        },
+      }
+    );
+  };
+  return show ? (
+    <PayStack subMitdata={subMitdata} amount={amount} setShow={setShow} />
+  ) : (
     <View style={styles.container}>
-     
       <View style={{ marginBottom: 10, paddingHorizontal: 8, marginTop: 10 }}>
-        <View
+        {/* <View
           style={{
             ...styles.floatBtn,
           }}
@@ -21,25 +63,36 @@ const FundWallet = ({ navigation }) => {
           <Avatar.Image style={{ backgroundColor: colors.primary }} size={44} />
           <Text style={{ ...fonts.p, fontSize: 15 }}>AddNew Card</Text>
           <FontAwesome5 name="chevron-right" size={24} color={colors.grey2} />
-        </View>
+        </View> */}
       </View>
-      <View style={{ paddingHorizontal: 20, paddingTop: "13%" }}>
+      <View style={{ paddingHorizontal: 20 }}>
+        <TextInputs
+          value={amount?.toString()}
+          onChangeText={(text) => setAmount(text)}
+          keyboardType="number-pad"
+          placeholder="Enter A amount (  NAIRA)"
+          // onChangeText={handleChange("username")}
+          // onBlur={handleBlur("username")}
+          // value={values.username}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 20, paddingTop: "20%" }}>
         <View style={{ ...styles.card }}>
           <Text style={{ ...fonts.h2, alignSelf: "flex-start" }}>
-            CREDIT CARDS
+            Choose Method
           </Text>
           <View style={{ ...styles.cardbody }}>
             <ScrollView>
-              <CardListrItems />
-              <CardListrItems />
-              <CardListrItems />
-              <CardListrItems />
-              <CardListrItems />
-              <CardListrItems />
-              <CardListrItems />
-              <CardListrItems />
-              <CardListrItems />
-              <CardListrItems />
+              <CardListrItems
+                onPress={() => {
+                  if (!amount) {
+                    return Alert.alert("Amount not set");
+                  }
+                  setShow(true);
+                }}
+                name="Paystack"
+              />
+              <CardListrItems name="Flutterwave" />
             </ScrollView>
           </View>
         </View>
@@ -121,4 +174,4 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
 });
-export default FundWallet;
+export default WithSpinner(FundWallet);

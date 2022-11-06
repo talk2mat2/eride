@@ -47,7 +47,7 @@ const AccountSettings = ({ navigation }) => {
       </View>
       <View style={{ paddingHorizontal: 10, marginTop: 20 }}>
         <Divider style={{ ...styles.hr, marginTop: 14, marginBottom: 20 }} />
-       
+
         {/* <TouchableNativeFeedback>
           <View style={{ marginVertical: 4, padding: 9 }}>
             <Text style={{ ...fonts.h2 }}>Manage Trusted Contacts</Text>
@@ -56,14 +56,16 @@ const AccountSettings = ({ navigation }) => {
             </Text>
           </View>
         </TouchableNativeFeedback> */}
-        <TouchableNativeFeedback>
-          <View style={{ marginVertical: 4, padding: 9 }}>
-            <Text style={{ ...fonts.h2 }}>Verify Your Ride</Text>
-            <Text style={{ ...fonts.p, fontSize: 14, color: colors.grey2 }}>
-              use a PIN to make sure you get right car
-            </Text>
-          </View>
-        </TouchableNativeFeedback>
+        {user?.userData?.role == "driver" && (
+          <TouchableNativeFeedback>
+            <View style={{ marginVertical: 4, padding: 9 }}>
+              <Text style={{ ...fonts.h2 }}>Verify Your Ride</Text>
+              <Text style={{ ...fonts.p, fontSize: 14, color: colors.grey2 }}>
+                use a PIN to make sure you get right car
+              </Text>
+            </View>
+          </TouchableNativeFeedback>
+        )}
         <TouchableNativeFeedback onPress={() => handleNav("editProfile")}>
           <View style={{ marginVertical: 4, padding: 9 }}>
             <Text style={{ ...fonts.h2 }}>Edit Profile</Text>
@@ -72,7 +74,7 @@ const AccountSettings = ({ navigation }) => {
             </Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback>
+        <TouchableNativeFeedback onPress={()=>handleNav("changepass")}>
           <View style={{ marginVertical: 4, padding: 9 }}>
             <Text style={{ ...fonts.h2 }}>Change Password</Text>
             <Text style={{ ...fonts.p, fontSize: 14, color: colors.grey2 }}>
@@ -80,7 +82,7 @@ const AccountSettings = ({ navigation }) => {
             </Text>
           </View>
         </TouchableNativeFeedback>
-        <TouchableNativeFeedback>
+        <TouchableNativeFeedback onPress={()=>handleNav("Wallet")}>
           <View style={{ marginVertical: 4, padding: 9 }}>
             <Text style={{ ...fonts.h2 }}>Fund Wallet</Text>
             <Text style={{ ...fonts.p, fontSize: 14, color: colors.grey2 }}>
