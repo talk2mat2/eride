@@ -2,6 +2,16 @@ import Constants from "expo-constants";
 import { Platform } from "react-native";
 
 const ENV = {
+  default:{
+    // apiUrl: "https://jsonplaceholder.typicode.com/tordos",
+    apiUrl: "https://echat.essentialdirect.ng/api",
+    apiUrl2: "http://localhost:8000/api",
+    // apiUrl: "http://192.168.43.139:8080/api/v1",
+    // apiUrl:"http://localhost:5262/api/v1",
+    amplitudeApiKey: null,
+    google_key: "AIzaSyCdL-pBPEaDtnBbxDs9X7WYyRScmnBfjsQ",
+    paystackclient: "pk_test_9df268d64ddb8974fb23c5d9e843eb5b57261938",
+  },
   dev: {
     // apiUrl: "https://jsonplaceholder.typicode.com/tordos",
     apiUrl: "https://echat.essentialdirect.ng/api",
@@ -44,7 +54,7 @@ const getEnvVars = (env = Constants.manifest.releaseChannel) => {
     return ENV.staging;
   } else if (env === "prod") {
     return ENV.prod;
-  }
+  } else return  ENV.default;
 };
 
 export default getEnvVars;

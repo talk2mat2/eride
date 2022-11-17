@@ -298,6 +298,7 @@ function Main({ setLoading }) {
       }
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      console.log(location)
       // console.log(location.coords);
       if (location?.coords?.longitude && location?.coords?.latitude) {
         setLoading(true);

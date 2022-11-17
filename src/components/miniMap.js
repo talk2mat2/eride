@@ -45,7 +45,7 @@ const MiniMap = () => {
             }),
 
             {
-              edgePadding: { top: 20, right: 30, bottom: 20, left: 20 },
+              edgePadding: { top: 80, right: 30, bottom: 50, left: 20 },
               animated: true,
             }
           )

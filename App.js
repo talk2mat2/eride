@@ -56,7 +56,7 @@ export default function App() {
               <SafeAreaProvider>
                 <SafeAreaView style={[styles.container]}>
                   <ToastProvider offsetBottom={70}>
-                    {/* <Main /> */}
+                    <Main />
                   </ToastProvider>
                 </SafeAreaView>
               </SafeAreaProvider>

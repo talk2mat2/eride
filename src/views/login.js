@@ -22,13 +22,12 @@ import { logIn } from "../redux/reducers/usersSlice";
 
 const Login = ({ navigation, setLoading, loading }) => {
   const { mutate } = useMutations();
-
   const { show } = appToast();
-
   const dispatch = useDispatch();
   const subMitdata = (datas) => {
     Keyboard.dismiss();
     // console.log(datas);
+  console.log(datas)
     mutate(
       {
         key: "login",
@@ -38,7 +37,7 @@ const Login = ({ navigation, setLoading, loading }) => {
       {
         onSuccess: (response) => {
           setLoading(false);
-
+console.log(response)
           if (response?.error) {
             return show(response?.error, {
               type: "normal",

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Keyboard } from "react-native";
+import { Text, View, StyleSheet, Keyboard, Alert } from "react-native";
 import Buttons from "../components/buttons";
 import Buttons2 from "../components/buttons2";
 import Header from "../components/header";
@@ -36,13 +36,12 @@ const Register = ({ navigation, setLoading, route, loading }) => {
               type: "normal",
             });
             setTimeout(() => {
-              console.log("hell",datas)
+              console.log("hell", datas);
               return navigation.navigate("otpView", {
                 user_id: response.user_id,
                 otp: response.otp,
                 email: datas?.email || "Your email",
               });
-            
             }, 2000);
           }
           if (response?.created == 0) {
@@ -91,6 +90,12 @@ const Register = ({ navigation, setLoading, route, loading }) => {
     );
   };
 
+  function toLowerKeys(obj) {
+    return Object.keys(obj).reduce((accumulator, key) => {
+      accumulator[key] = obj[key]?.toLowerCase();
+      return accumulator;
+    }, {});
+  }
   return (
     <View style={{ ...styles.container }}>
       <Header
@@ -100,7 +105,7 @@ const Register = ({ navigation, setLoading, route, loading }) => {
       />
       <Formik
         initialValues={{
-          username: "",
+          username: "martins",
           password: "",
           first_name: "",
           email: "",
@@ -111,10 +116,27 @@ const Register = ({ navigation, setLoading, route, loading }) => {
           subject: "eride",
         }}
         onSubmit={(values) => {
+          const { password, password2, phone, last_name, email, country } =
+            values;
+          if (
+            !password ||
+            !password2 ||
+            !phone ||
+            !last_name ||
+            !email ||
+            !country
+          ) {
+            return Alert.alert("All fields are required");
+          }
+          if(password!==password2){
+            return Alert.alert(" both password fields dont match")
+          }
           setLoading(true);
           if (values.password2) {
             delete values.password2;
           }
+          // subMitdata(toLowerKeys(values));
+          console.log("post request");
           subMitdata(values);
         }}
       >
@@ -174,6 +196,7 @@ const Register = ({ navigation, setLoading, route, loading }) => {
               />
               <TextInputs
                 placeholder="Phone Number"
+                keyboardType={"number-pad"}
                 inputStyles={{ width: "40%", marginLeft: "10%" }}
                 onChangeText={handleChange("phone")}
                 onBlur={handleBlur("phone")}

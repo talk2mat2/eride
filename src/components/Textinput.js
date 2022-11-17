@@ -24,6 +24,7 @@ const TextInputs = (
         style={{ backgroundColor: colors.white }}
         label={placeholder}
         onChangeText={onChangeText}
+
         onBlur={onBlur}
         disabled={disabled}
         value={value}
